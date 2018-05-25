@@ -1,0 +1,26 @@
+<@row>
+    <#if (config.isInstantPurge)??>
+        <#assign configInstantPurge = config.instantPurge />
+    <#else>
+        <#assign configInstantPurge = false />
+    </#if>
+    <#if (config.isInstantPurgeWithAction)??>
+        <#assign configInstantPurgeWithAction = config.instantPurgeWithAction />
+    <#else>
+        <#assign configInstantPurgeWithAction = false />
+    </#if>
+    <@fieldInputRadioBox i18nLabelKey="module.workflow.directoryfile.configForm.instantPurge.label" inputName="instantPurge" value="true" i18nHelpBlockKey='module.workflow.directoryfile.configForm.instantPurge.help' cssClass='' checked=configInstantPurge />
+
+    <div class="form-group">
+        <div class="col-xs-12 col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
+            <div class="radio">
+                <label>
+                    <input id="days_before_purge" name="instantPurge" type="radio" value="false" <#if config ?? && !config.instantPurge && config.daysBeforePurge gt 0>checked="checked"</#if>>
+                    <input type="text" name="daysBeforePurge" value="<#if config?? && config.daysBeforePurge gt 0>${config.daysBeforePurge}<#else>0</#if>"/>
+                    #i18n{module.workflow.directoryfile.configForm.nbDaysBeforePurge.label}
+                </label>
+            </div>
+            <p class="help-block">#i18n{module.workflow.directoryfile.configForm.nbDaysBeforePurge.help}</p>
+        </div>
+    </div>
+</@row>

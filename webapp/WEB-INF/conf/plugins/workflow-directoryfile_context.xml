@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+    <!-- Transaction Manager -->
+    <bean id="workflow-directoryfile.transactionManager" class="fr.paris.lutece.portal.service.database.DAOUtilTransactionManager"
+        p:pluginName="workflow-directoryfile" />
+    
+    <!-- DAO -->
+    <bean id="workflow-directoryfile.globalFilePurgeConfigDAO" class="fr.paris.lutece.plugins.workflow.modules.directoryfile.business.task.config.TaskGlobalFilePurgeConfigDAO" />
+
+    <!-- Services -->
+    <bean id="workflow-directoryfile.taskGlobalFilePurgeConfigService"
+        class="fr.paris.lutece.plugins.workflowcore.service.config.TaskConfigService"
+        p:taskConfigDAO-ref="workflow-directoryfile.globalFilePurgeConfigDAO" />
+
+    <!-- Task config -->
+    <bean id="workflow-directoryfile.taskGlobalFilePurgeConfig"
+        class="fr.paris.lutece.plugins.workflow.modules.directoryfile.business.task.config.TaskGlobalFilePurgeConfig"
+        scope="prototype" />  
+    
+    <!-- Task -->
+    <bean id="workflow-directoryfile.taskTypeGlobalPurgeFile" class="fr.paris.lutece.plugins.workflowcore.business.task.TaskType"
+            p:key="taskGlobalPurgeFile"
+            p:titleI18nKey="module.workflow.directoryfile.task.globalFilePurge.task_title"
+            p:beanName="workflow-directoryfile.taskGlobalFilePurge"
+            p:configBeanName="workflow-directoryfile.taskGlobalFilePurgeConfig"
+            p:configRequired="true"
+            p:formTaskRequired="false"
+            p:taskForAutomaticAction="true" 
+            
+    />
+    <bean id="workflow-directoryfile.taskGlobalFilePurge" class="fr.paris.lutece.plugins.workflow.modules.directoryfile.service.task.TaskGlobalFilePurge" scope="prototype" />
+    
+    <bean id="workflow-directoryfile.taskGlobalPurgeFileComponent" class="fr.paris.lutece.plugins.workflow.modules.directoryfile.web.task.TaskGlobalFilePurgeComponent"
+     p:taskType-ref="workflow-directoryfile.taskTypeGlobalPurgeFile"
+     p:taskConfigService-ref="workflow-directoryfile.taskGlobalFilePurgeConfigService"
+    />
+    
+    <!-- Daemon -->
+    <bean id="filePurgeDaemon" class="fr.paris.lutece.plugins.workflow.modules.directoryfile.service.daemon.FilePurgeDaemon"/>
+
+</beans>
