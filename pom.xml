@@ -26,19 +26,19 @@
         <dependency>
             <groupId>fr.paris.lutece</groupId>
             <artifactId>lutece-core</artifactId>
-            <version>[6.0.1,)</version>
+            <version>[6.0.1,7.9.9)</version>
             <type>lutece-core</type>
         </dependency>
         <dependency>
             <groupId>fr.paris.lutece.plugins</groupId>
             <artifactId>plugin-workflow</artifactId>
-            <version>[4.3.5,)</version>
+            <version>[4.3.5,6.9.9)</version>
             <type>lutece-plugin</type>
         </dependency>
         <dependency>
             <groupId>fr.paris.lutece.plugins</groupId>
             <artifactId>plugin-directory</artifactId>
-            <version>[4.0.12-SNAPSHOT,)</version>
+            <version>[4.0.12-SNAPSHOT,4.9.9)</version>
             <type>lutece-plugin</type>
         </dependency>
     </dependencies>
